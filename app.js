@@ -55,7 +55,7 @@ App.post("/logar", async (req, res) => {
             
             if (usuario.admin === 1) {
                 // Para admin - mostra todos os usuários (exemplo)
-                const [todosUsuarios] = await pool.query('SELECT idconta, usuario, senha FROM conta');
+                const [todosUsuarios] = await pool.query('SELECT idconta, usuario, senha, admin FROM conta');
                 res.render("index", {
                     nome: usuario.usuario, // Mostra o nome do admin
                     texto: "Modo Administrador",

@@ -163,6 +163,43 @@ App.post("/recuperar-senha", async (req, res) => {
     }
 });
 
+App.post("/recuperar-senha", async (req, res) => {
+    const { usuario, novaSenha } = req.body;
+
+    try {
+        // Verifica se usuário existe
+        const [rows] = await pool.query(
+            'SELECT * FROM conta WHERE usuario = ?',
+            [usuario]
+        );
+
+        if (rows.length === 0) {
+            return res.render("recuperar", {
+                erro: "Usuário não encontrado!",
+                sucesso: null
+            });
+        }
+
+        // Atualiza senha (em texto puro)
+        await pool.query(
+            'UPDATE conta SET senha = ? WHERE usuario = ?',
+            [novaSenha, usuario]
+        );
+
+        res.render("recuperar", {
+            erro: null,
+            sucesso: "Senha alterada com sucesso!"
+        });
+
+    } catch (err) {
+        console.error("Erro ao recuperar senha:", err);
+        res.render("recuperar", {
+            erro: "Erro ao alterar senha. Tente novamente.",
+            sucesso: null
+        });
+    }
+});
+
 // Rota para a página de erro
 App.get("/error", (req, res) => {
     res.render("error");

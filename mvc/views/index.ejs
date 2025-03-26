@@ -23,6 +23,7 @@
             
             <% if (usuarios) { %>
                 <h3>Tabela de Usuários (Admin):</h3>
+                
                 <table class="table table-dark table-striped-columns">
                     <thead>
                       <tr>
@@ -30,6 +31,7 @@
                         <th scope="col">Usuario</th>
                         <th scope="col">Senha</th>
                         <th scope="col">Grau de acesso</th>
+                        <th scope="col">Mecanica</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -39,6 +41,37 @@
                                 <td><%= usuario.usuario %></td>
                                 <td><%= usuario.senha %></td>
                                 <td><%= usuario.admin %></td>
+                                <td>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        editar usuario
+                                    </button>
+                                    
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h1 class="modal-title fs-5 text-dark" id="exampleModalLabel">Editar</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form action="">
+                                                <div class="modal-body">
+                                                    <input class="form-control me-2" type="hidden" value="<%= usuario.idconta %>" aria-label="Search" id="idconta" name="idconta">
+                                                    <p class="text-dark">Usuario</p>
+                                                    <input class="form-control me-2" type="search" value="<%= usuario.usuario %>" aria-label="Search" id="conta" name="conta">
+                                                    <p class="text-dark">Senha</p>
+                                                    <input class="form-control me-2" type="search" value="<%= usuario.admin %>" aria-label="Search" id="Senha" name="Senha">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </td>
                               </tr>
                         <% }); %>
                     </tbody>

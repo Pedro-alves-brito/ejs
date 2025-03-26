@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-br">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,23 +21,28 @@
         <div class="d-flex justify-content-center">
             <div class="card text-center mb-3" style="width: 18rem;">
                 <div class="card-body">
+                    <% if (erro) { %>
+                        <div class="alert alert-danger mt-3">
+                            <%= erro %>
+                        </div>
+                    <% } %>
                     <form action="/logar" method="POST">
 
                         <h3>Login</h3>
                         <div>
                             <p><small>Usuario</small></p>
-                            <input class="form-control me-2" type="search" placeholder="Usuario" aria-label="Search" id="conta">
+                            <input class="form-control me-2" type="search" placeholder="Usuario" aria-label="Search" id="conta" name="conta">
                         </div>
                         <div>
                             <p><small>Senha</small></p>
-                            <input class="form-control me-2" type="password" placeholder="Senha" aria-label="Search" id="Senha">
+                            <input class="form-control me-2" type="password" placeholder="Senha" aria-label="Search" id="Senha" name="Senha">
                         </div>
                         <button class="btn btn-primary" type="submit">Conequitar</button>
                     </form>
                     <div class="d-flex justify-content-center">
-                        <a href="">Ciar conta</a>
-                        <p>/</p>
-                        <a href="">Recuperar conta</a>
+                        <a href="/cadastro">Criar conta</a>
+                        <p class="mx-2">/</p>
+                        <a href="/recuperar">Recuperar conta</a>
                     </div>
                 </div>
               </div>

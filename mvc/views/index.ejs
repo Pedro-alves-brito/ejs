@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +8,15 @@
 </head>
 <body>
     <h1>Olá, <%= nome %></h1>
-    <p>
-        <%= texto %>
-    </p>
+    <p><%= texto %></p>
+    
+    <% if (usuarios) { %>
+        <h3>Lista de Usuários (Admin):</h3>
+        <ul>
+            <% usuarios.forEach(usuario => { %>
+                <li>ID: <%= usuario.idconta %> - <%= usuario.usuario %> - <%= usuario.senha %></li>
+            <% }); %>
+        </ul>
+    <% } %>
 </body>
 </html>

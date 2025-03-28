@@ -22,11 +22,39 @@ const pool = mysql.createPool({
 });
 
 // Página inicial
-App.get("/", (req, res) => {
-    res.render("index", {
-        nome: "Visitante", // Valor padrão
-        texto: null
-    });
+App.get("/", async (req, res) => {
+    const {idconta, conta, Senha, admin} = req.body;
+
+    try {
+        // Consulta ao banco para verificar usuário e senha JUNTOS
+        const [rows] = await pool.query(
+            'SELECT * FROM conta WHERE idconta = ?',
+            [idconta]  // Comparação direta
+        );
+        
+        await pool.query(
+            'UPDATE conta SET senha = ?, usuario = ?, admin = ? WHERE idconta = ?',
+            [Senha,conta,admin,idconta]
+        );
+
+        console.log('Resultado da consulta:', rows);
+
+            const usuario = rows[0]; // Armazena o usuário encontrado
+            
+                // Para admin - mostra todos os usuários (exemplo)
+                const [todosUsuarios] = await pool.query('SELECT idconta, usuario, senha, admin FROM conta');
+                res.render("index", {
+                    nome: usuario.usuario, // Mostra o nome do admin
+                    texto: "Modo Administrador",
+                    usuarios: todosUsuarios // Envia a lista formatada
+                });
+
+    } catch (err) {
+        console.error("Erro no login:", err);
+        res.render("login", { 
+            erro: "Erro no servidor. Tente novamente." 
+        });
+    }
 });
 
 // Página de login
